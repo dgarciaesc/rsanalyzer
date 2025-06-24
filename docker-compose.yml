@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: airbnb_search
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/airbnb_search
+      POSTGRES_PASSWORD: postgres
+      ENABLE_LOGS: "true"
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data: 

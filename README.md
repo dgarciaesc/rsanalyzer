@@ -1,6 +1,6 @@
 # Airbnb Search Web Application
 
-A full-stack web application that allows users to search for Airbnb listings in any city for specific dates. The application features a modern React frontend with a calendar interface and a Flask backend that handles the Airbnb API integration.
+A full-stack web application that allows users to search for Airbnb listings in any city for specific dates. The application features a modern React frontend with a calendar interface and a Flask backend that handles the Airbnb API integration, all containerized for easy local development.
 
 ## Features
 
@@ -14,56 +14,69 @@ A full-stack web application that allows users to search for Airbnb listings in 
 ## Tech Stack
 
 ### Frontend
-- React
+- React (frontend/)
 - Material-UI
 - Axios for API calls
 - Date-fns for date handling
 
 ### Backend
-- Flask
+- Flask (app.py, models.py, config.py)
 - Flask-CORS
-- pyairbnb (Airbnb API wrapper)
+- Flask-SQLAlchemy
+- pyairbnb (Airbnb API wrapper, src/pyairbnb/)
+- PostgreSQL (via Docker)
+
+## Project Structure
+
+```
+.
+├── app.py                # Flask backend entry point
+├── models.py             # SQLAlchemy models
+├── config.py             # Configuration
+├── requirements.txt      # Python dependencies
+├── docker-compose.yml    # Docker Compose setup
+├── Dockerfile            # Backend Dockerfile
+├── wait-for-it.sh        # Script to wait for DB
+├── frontend/             # React frontend
+│   ├── src/              # React source code
+│   └── public/           # Static files
+├── src/pyairbnb/         # Airbnb API wrapper and utilities
+├── details_data.csv      # Output CSV (auto-generated)
+├── search_results.csv    # Output CSV (auto-generated)
+├── search_results_from_url.csv # Output CSV (auto-generated)
+└── ...
+```
 
 ## Prerequisites
 
-- Python 3.7+
-- Node.js 14+
-- npm or yarn
+- [Docker](https://www.docker.com/products/docker-desktop) and Docker Compose
 
-## Installation
+## Running the Application with Docker
 
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd <repository-name>
-```
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   cd <repository-name>
+   ```
 
-2. Install Python dependencies:
-```bash
-pip install flask flask-cors pyairbnb
-```
+2. **Build and start the containers:**
+   ```bash
+   docker-compose up --build
+   ```
+   This will start:
+   - The Flask backend (http://localhost:5000)
+   - A PostgreSQL database (http://localhost:5432)
 
-3. Install frontend dependencies:
-```bash
-cd frontend
-npm install
-```
+3. **Start the React frontend:**
+   In a new terminal, run:
+   ```bash
+   cd frontend
+   npm install
+   npm start
+   ```
+   The frontend will run on http://localhost:3000
 
-## Running the Application
-
-1. Start the Flask backend:
-```bash
-# From the root directory
-python app.py
-```
-The backend will run on http://localhost:5000
-
-2. Start the React frontend:
-```bash
-# From the frontend directory
-npm start
-```
-The frontend will run on http://localhost:3000
+> **Note:** You can also add a Dockerfile and service for the frontend if you want to run it in a container as well.
 
 ## How to Use
 

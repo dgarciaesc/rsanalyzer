@@ -1,0 +1,8 @@
+flask
+flask_sqlalchemy
+flask-cors
+pyairbnb
+SQLAlchemy
+psycopg2-binary
+python-dotenv
+pandas 
